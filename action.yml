@@ -1,0 +1,17 @@
+name: MR Review Agent
+description: AI-powered code review for GitHub Pull Requests using Groq
+
+inputs:
+  groq_api_key:
+    description: Your Groq API key
+    required: true
+  github_token:
+    description: GitHub token for posting comments
+    required: true
+
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    GROQ_API_KEY: ${{ inputs.groq_api_key }}
+    GITHUB_TOKEN: ${{ inputs.github_token }}

@@ -1,0 +1,24 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run AI Review
+        uses: Mona95/mr-review-agent@main
+        with:
+          groq_api_key: ${{ secrets.GROQ_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
